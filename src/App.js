@@ -6,29 +6,43 @@ import {colorConst} from "./constants/colors.constant";
 
 let {primary, zwei, trois} = colorConst;
 
-// styled components
+/*
+ * styled components
+ */
 const Shadowed = styled.span`
     text-shadow: 2px 2px 5px${zwei["fraulein-blau"]}
 `
 const StyleRounded = styled.span`
-    box-radius: 25px;
+    border-radius: 25px;
 `
 
 const MyStyledContainer = styled.div`
-    width: 35em;
-    height: 70vh;
+    width: 80vw;
+    min-height: 70vh;
     margin: 0 auto;
     padding: 40px;
     box-shadow: -5px 5px 15px ${props => props.boxShadah};
     text-align: right;
     color: #000000;
+    border-radius: 15px;
     background: ${primary.blanque}
 `
 
+const FlexRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+`
 const Card = styled.div`
     width: 200px;
-    height: 150px;
+    height: 400px;
     padding: 5px;
+    background: ${zwei["das-blau"]};
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: flex-start;
 `
 
 const JetsetTypographyH2 = styled.h2`
@@ -45,12 +59,16 @@ const ThumbnailImg = styled.img`
     height: auto;
 `
 
-// stateless "dumb" components
+/*
+ * stateless "dumb" components
+ */
 const HaiHello = () => (
     <React.Fragment>
+    {/*obv unstyled h2*/}
       <h2>
-        Welcome to:
+        Wilkommen!
       </h2>
+    {/*supa styled to death H2*/}
       <Shadowed>
         <JetsetTypographyH2
             textColor={trois.slushy}
@@ -62,35 +80,26 @@ const HaiHello = () => (
     </React.Fragment>
 );
 
-const CarThumbnail = (props) => (
-    <React.Fragment>
-      <Card>
-        <StyleRounded>
-          <ThumbnailImg
-              src={props.imgSrc}
-          />
-          <p>
-              {props.make}
-          </p>
-        </StyleRounded>
+const JetsetAutoCard = (props) => {
+    return(
+        <React.Fragment>
+            <Card>
+                <StyleRounded>
+                    <ThumbnailImg
+                        src={props.imgSrc}
+                        // src={CarMakes[0].img}
+                    />
+                    <h4>{props.make}</h4>
+                    <h6>{props.model}</h6>
 
-      </Card>
-    </React.Fragment>
-);
+                </StyleRounded>
+
+            </Card>
+        </React.Fragment>
+    );
+}
 
 // le view actuale
-
-const CardList = CarMakes.map((car) => {
-    <div>
-        <CarThumbnail
-            key={car.id}
-            imgSrc={car.img}
-            make={car.make}
-            model={car.model}
-        />
-    </div>
-
-});
 
 function App() {
 
@@ -98,7 +107,21 @@ function App() {
       <div className="App">
           <MyStyledContainer>
             <HaiHello/>
-          <CardList/>
+            <FlexRow>
+              {CarMakes.map((car) => {
+                  return (
+                      <JetsetAutoCard
+                          key={car.id}
+                          imgSrc={car.img}
+                          make={car.make}
+                          model={car.model}
+
+                      />
+                  )
+                })
+              }
+          </FlexRow>
+
           </MyStyledContainer>
       </div>
   );
