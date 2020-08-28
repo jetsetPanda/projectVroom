@@ -3,61 +3,72 @@ export const CarMakes = [
         "id": "1dd25cb5-2b38-4f4f-ae25-81892f2136f7",
         "make": "Chevrolet",
         "model": "Camaro",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USD00CHC021A021001.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USD00CHC021A021001.jpg",
+        "theme": "trois.poopy"
     },
     {
         "id": "b8b875de-cc14-4023-a3a4-697ccce5fd1f",
         "make": "Volvo",
         "model": "S60",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90VOC341A021001_2.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90VOC341A021001_2.jpg",
+        "theme": "trois.gnarly"
+
     },
     {
         "id": "70df4e42-8d80-4e49-8901-1d551cfca146",
         "make": "Infiniti",
         "model": "JX35",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/CAC30INS111A021001.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/CAC30INS111A021001.jpg",
+        "theme": "trois.slushy"
     },
     {
         "id": "824cba71-dc73-44ec-9000-e33792f251a6",
         "make": "MINI",
         "model": "Countryman",
-        "img": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwMqeUVLegCzucEwxuRFhVs_xkCnSAXXWETkknGQU3_bpMQfWM"
+        "img": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwMqeUVLegCzucEwxuRFhVs_xkCnSAXXWETkknGQU3_bpMQfWM",
+        "theme": "trois.poopy"
     },
     {
         "id": "90a62b83-7c87-484f-ac77-a0976b631fe7",
         "make": "Mercury",
         "model": "Sable",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USB90MEC041A0101.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USB90MEC041A0101.jpg",
+        "theme": "trois.merp"
     },
     {
         "id": "0d36fe15-e4bd-4920-9896-bd668f7dc70f",
         "make": "Oldsmobile",
         "model": "Silhouette",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USB40OLV011B0101.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USB40OLV011B0101.jpg",
+        "theme": "trois.gnarly"
     },
     {
         "id": "a2da2ed6-ddce-4b5a-b206-bf143994849a",
         "make": "Nissan",
         "model": "Quest",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC70NIV091B021001.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC70NIV091B021001.jpg",
+        "theme": "trois.merp"
     },
     {
         "id": "f146e70a-d050-420f-9900-de437704d9f1",
         "make": "Kia",
         "model": "Rio",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90KIC031B021001.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90KIC031B021001.jpg",
+        "theme": "trois.poopy"
     },
     {
         "id": "60209592-b425-4530-9a28-a5f87caa3710",
         "make": "Mazda",
         "model": "323",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90MAC171A021001.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC90MAC171A021001.jpg",
+        "theme": "trois.slushy"
     },
     {
         "id": "576efa03-3707-4e72-840f-86587818eacd",
         "make": "Maybach",
         "model": "62",
-        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC20MYC021B0101.jpg"
+        "img": "https://s.aolcdn.com/dims-global/dims3/GLOB/legacy_thumbnail/788x525/quality/85/https://s.aolcdn.com/commerce/autodata/images/USC20MYC021B0101.jpg",
+        "theme": "trois.poopy"
     }
 ];
 
