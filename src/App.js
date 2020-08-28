@@ -8,27 +8,50 @@ import {colorConst} from "./constants/colors.constant";
  * data operation
  */
 
-const getInventory = (makes, inv) => {
-    console.log('makes:',makes);
-    console.log('inv', inv);
 
+function reconcileInventory(cars, inv) {
+    const IdMap = new Map();
 
+    const reconcileInv = ({make, model, img}) => {
+        return {
+            deliveries: [],
+            make: make,
+            model: model,
+            imgSrc: img
+        }
+    }
+
+    for(const {id, ...car} of cars){
+        const invData = reconcileInv({...car})
+        IdMap.set(id, invData);
+    }
+
+    for(const {carId, quantity, dateReceived} of inv){
+        const invData = IdMap.get(carId);
+        const deliveries = invData.deliveries;
+        deliveries.push({
+            deliveryDate: dateReceived,
+            carsDelivered: quantity
+        });
+    }
+
+    return IdMap;
 }
 
-let reconciledInventory = getInventory(CarMakes, inventory);
 
-let {primary, zwei, trois} = colorConst;
 
 /*
  * styled components
  */
 
+let {primary, zwei, trois} = colorConst;
+
 const MyStyledContainer = styled.div`
-    width: 80vw;
+    width: 75vw;
     min-height: 70vh;
     margin: 10vh auto;
     padding: 40px;
-    box-shadow: -5px 5px 10px ${props => props.boxShadah || trois.poopy};
+    box-shadow: -3px 5px 10px ${props => props.boxShadah || trois.poopy};
     text-align: right;
     color: #000000;
     border-radius: 15px;
@@ -53,27 +76,27 @@ const Card = styled.div`
     align-items: center;
     justify-content: flex-start;
     color: ${trois.slushy};
-    transition: all ease-in 0.3s;
+    transition: all ease-in 0.2s;
     
     &:hover {
         background: ${zwei["fraulein-blau"]};
         color: ${primary.nadir};
         border: 2px solid ${primary.azool}
-        box-shaddow: 
     }
 `
 
-const JetsetTypographyH2 = styled.h2`
+const JetsetTypographyH3 = styled.h3`
+    font-family: 'Audiowide', sans-serif;
     font-weight: 600;
-    font-size: 3.5em;
-    letter-spacing: 0.2em;
+    font-size: 2em;
+    // letter-spacing: 0.1em;
     padding: 5px 0;
     margin: 0;
     text-transform: ${props => props.textTransform || "none"};
     color: ${props => props.textColor|| primary.rojo}
 `
 const Shadowed = styled.span`
-    text-shadow: 2px 2px 5px${zwei["fraulein-blau"]}
+    text-shadow: 2px 2px 5px ${zwei["fraulein-blau"]}
 `
 const ThumbnailImg = styled.img`
     width: 180px;
@@ -81,22 +104,22 @@ const ThumbnailImg = styled.img`
 `
 
 /*
- * stateless "dumb" components
+ * stateless "dumb"/display components
  */
 const HaiHello = () => (
     <React.Fragment>
     {/*obv unstyled h2*/}
-      <h2>
-        Wilkommen! I'm a boring h2, below is a styled AF h2
-      </h2>
-    {/*supa styled to death H2*/}
+      <h3>
+        Wilkommen! I'm a boring h3, below is a styled AF H3-Component
+      </h3>
+    {/*supa styled to death H3*/}
       <Shadowed>
-        <JetsetTypographyH2
+        <JetsetTypographyH3
             textColor={trois.slushy}
             textTransform="uppercase"
         >
-          jetset Autos
-        </JetsetTypographyH2>
+          jetSEtAut0s
+        </JetsetTypographyH3>
       </Shadowed>
     </React.Fragment>
 );
@@ -105,23 +128,32 @@ const JetsetAutoCard = (props) => {
     return(
         <React.Fragment>
                 <Card>
-                        <ThumbnailImg
-                            src={props.imgSrc}
-                            // src={CarMakes[0].img}
-                        />
-                        <h4>{props.make}</h4>
-                        <h6>{props.model}</h6>
+                    <ThumbnailImg
+                        src={props.imgSrc}
+                        // src={CarMakes[0].img}
+                    />
+                    <h4>{props.make}</h4>
+                    <h6>{props.model}</h6>
                 </Card>
 
         </React.Fragment>
     );
 }
 
+
+
+
+
+
 // le view actuale
 
 function App() {
 
-  return (
+
+    let reconciledInventory = reconcileInventory(CarMakes, inventory);
+    console.log("reconciled inventory is: ", reconciledInventory);
+
+    return (
       <div className="App">
           <MyStyledContainer>
             <HaiHello/>
