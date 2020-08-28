@@ -8,26 +8,28 @@ import {colorConst} from "./constants/colors.constant";
  * data operation
  */
 
-
 function reconcileInventory(cars, inv) {
-    const IdMap = new Map();
+    let results = [];
+    const MapById = new Map(); //hashmap thru common id
 
-    const reconcileInv = ({make, model, img}) => {
+    const reconcileInv = (id, {make, model, img, theme}) => {
         return {
             deliveries: [],
+            id: id,
             make: make,
             model: model,
-            imgSrc: img
+            imgSrc: img,
+            theme: theme
         }
     }
 
     for(const {id, ...car} of cars){
-        const invData = reconcileInv({...car})
-        IdMap.set(id, invData);
+        const invData = reconcileInv(id, {...car})
+        MapById.set(id, invData);
     }
 
     for(const {carId, quantity, dateReceived} of inv){
-        const invData = IdMap.get(carId);
+        const invData = MapById.get(carId);
         const deliveries = invData.deliveries;
         deliveries.push({
             deliveryDate: dateReceived,
@@ -35,7 +37,11 @@ function reconcileInventory(cars, inv) {
         });
     }
 
-    return IdMap;
+    MapById.forEach(value => {
+        results.push(value);
+    })
+
+    return results;
 }
 
 
@@ -46,24 +52,26 @@ function reconcileInventory(cars, inv) {
 
 let {primary, zwei, trois} = colorConst;
 
+// layout styles
+const FlexRow = styled.div`
+    display: flex;
+    flex-direction: ${props => props.flexDirect || "row"};
+    flex-wrap: ${props => props.wrap || "wrap"};
+    justify-content: ${props => props.justifyContent || "space-evenly"};
+`
+
 const MyStyledContainer = styled.div`
-    width: 75vw;
-    min-height: 70vh;
+    max-width: 1250px;
+    min-height: 60vh;
     margin: 10vh auto;
     padding: 40px;
-    box-shadow: -3px 5px 10px ${props => props.boxShadah || trois.poopy};
+    box-shadow: -3px 5px 10px ${gimme => gimme.boxShadah || trois.poopy};
     text-align: right;
     color: #000000;
     border-radius: 15px;
     background: ${primary.blanque}
 `
 
-const FlexRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-`
 const Card = styled.div`
     width: 200px;
     height: 400px;
@@ -84,6 +92,7 @@ const Card = styled.div`
         border: 2px solid ${primary.azool}
     }
 `
+// font styles
 
 const JetsetTypographyH3 = styled.h3`
     font-family: 'Audiowide', sans-serif;
@@ -93,8 +102,29 @@ const JetsetTypographyH3 = styled.h3`
     padding: 5px 0;
     margin: 0;
     text-transform: ${props => props.textTransform || "none"};
-    color: ${props => props.textColor|| primary.rojo}
+    color: ${gimme => gimme.textColor|| primary.rojo}
 `
+const JetsetTypographyH4 = styled.h4`
+    font-family: 'Bebas Neue', cursive;
+    color: ${zwei["rias-baixas"]};
+`
+const JetsetTypographyH5 = styled.h5`
+    font-family: 'Oxanium', cursive;
+    color: ${zwei["gruner-veltliner"]};
+`
+
+const JetsetTypographyP = styled.p`
+    font-size: 0.5em;
+    font-weight: 600;
+    color: ${props => props.color || primary.nadir};
+    margin: ${props => props.margin || "0.3em"};
+    
+    &:hover {
+        color: ${props => props.hoverColor || primary.rojo};
+    }
+`
+// random shites
+
 const Shadowed = styled.span`
     text-shadow: 2px 2px 5px ${zwei["fraulein-blau"]}
 `
@@ -104,15 +134,33 @@ const ThumbnailImg = styled.img`
 `
 
 /*
+ * helper
+ *
+ */
+
+const gimmeDate = (stamp) => {
+    let millisec = (parseInt(stamp)) * 1000;
+    let dateObj = new Date(millisec);
+    return dateObj.toLocaleString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+    })
+}
+
+
+/*
  * stateless "dumb"/display components
  */
 const HaiHello = () => (
     <React.Fragment>
-    {/*obv unstyled h2*/}
+
+      {/*obv unstyled h2*/}
       <h3>
         Wilkommen! I'm a boring h3, below is a styled AF H3-Component
       </h3>
-    {/*supa styled to death H3*/}
+
+      {/*supa styled to death H3*/}
       <Shadowed>
         <JetsetTypographyH3
             textColor={trois.slushy}
@@ -124,48 +172,90 @@ const HaiHello = () => (
     </React.Fragment>
 );
 
+const CarDeliveryInfo = (props) => (
+    <FlexRow
+        justifyContent="space-between"
+    >
+        <JetsetTypographyP
+            color={trois.poopy}
+        >
+            {gimmeDate(props.deliveryDate)}
+        </JetsetTypographyP>
+
+        <JetsetTypographyP
+            color={trois.gnarly}
+        >
+            {" "}{props.carsDelivered}
+        </JetsetTypographyP>
+    </FlexRow>
+)
 const JetsetAutoCard = (props) => {
+    console.log("stuff: ", props.carStuffs);
+    let { make,
+          model,
+          imgSrc,
+          theme,
+          deliveries
+    } = props.carStuffs;
+
+
     return(
         <React.Fragment>
-                <Card>
+                <Card
+                    theme={theme}
+                >
                     <ThumbnailImg
-                        src={props.imgSrc}
-                        // src={CarMakes[0].img}
+                        src={imgSrc}
                     />
-                    <h4>{props.make}</h4>
-                    <h6>{props.model}</h6>
+                    <JetsetTypographyH4>
+                        {make}
+                    </JetsetTypographyH4>
+                    <JetsetTypographyH5>
+                        {model}
+                    </JetsetTypographyH5>
+                    <FlexRow>
+                        {(deliveries.length > 0) ? deliveries.map((delivery) => {
+                            return (
+                                    <CarDeliveryInfo
+                                        deliveryDate={delivery.deliveryDate}
+                                        carsDelivered={delivery.carsDelivered}
+                                    />
+                                )
+
+                        }) : (
+                            <JetsetTypographyP
+                                color={trois.merp}
+                            >
+                                No Deliveries for the {model}.
+                            </JetsetTypographyP>)
+                        }
+                    </FlexRow>
+
                 </Card>
 
         </React.Fragment>
     );
 }
 
+let carInventory = reconcileInventory(CarMakes, inventory);
+console.log("reconciled inventory is: ", carInventory);
 
-
-
-
-
-// le view actuale
+// below: Le View Actualite
 
 function App() {
-
-
-    let reconciledInventory = reconcileInventory(CarMakes, inventory);
-    console.log("reconciled inventory is: ", reconciledInventory);
+    // const cars = reconciledInventory;
 
     return (
       <div className="App">
           <MyStyledContainer>
             <HaiHello/>
             <FlexRow>
-              {CarMakes.map((car) => {
+              {carInventory.map((car) => {
+                  console.log("car: ", car);
                   return (
                       <JetsetAutoCard
                           key={car.id}
-                          imgSrc={car.img}
-                          make={car.make}
-                          model={car.model}
-
+                          carStuffs={{...car}}
                       />
                   )
                 })
