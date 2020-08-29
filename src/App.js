@@ -198,6 +198,7 @@ const JetsetAutoCard = (props) => {
           deliveries
     } = props.carStuffs;
 
+    let runningTotal = 0;
 
     return(
         <React.Fragment>
@@ -215,6 +216,7 @@ const JetsetAutoCard = (props) => {
                     </JetsetTypographyH5>
                     <FlexRow>
                         {(deliveries.length > 0) ? deliveries.map((delivery) => {
+                            runningTotal += delivery.carsDelivered;
                             return (
                                     <CarDeliveryInfo
                                         deliveryDate={delivery.deliveryDate}
@@ -230,7 +232,13 @@ const JetsetAutoCard = (props) => {
                             </JetsetTypographyP>)
                         }
                     </FlexRow>
-
+                        {(runningTotal>0) &&
+                            <JetsetTypographyP
+                                color={trois.merp}
+                            >
+                                Total {model}s Rec'vd: {runningTotal}
+                            </JetsetTypographyP>
+                        }
                 </Card>
 
         </React.Fragment>

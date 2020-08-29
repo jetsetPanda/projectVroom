@@ -17,6 +17,6 @@ export const colorConst = {
         "poopy":"#815e32",
         "gnarly":"#3a8829",
         "slushy":"#ab9273",
-        "merp": "#6b0e13"
+        "merp": "#b13c28"
     }
 };
