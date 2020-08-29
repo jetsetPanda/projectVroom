@@ -236,7 +236,7 @@ const JetsetAutoCard = (props) => {
                             <JetsetTypographyP
                                 color={trois.merp}
                             >
-                                Total {model}s Rec'vd: {runningTotal}
+                                Delivered {model}s: {runningTotal}
                             </JetsetTypographyP>
                         }
                 </Card>
